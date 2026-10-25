@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; worker-src 'self'; connect-src 'none'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Password Lab · 本地密码实验室</title>
+  <link rel="icon" href="icons/icon32.png">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="lab.html"><img src="icons/icon48.png" width="38" height="38" alt=""><span>PASSWORD LAB<small>本地密码实验室</small></span></a>
+      <div class="top-actions"><span class="offline"><span aria-hidden="true">●</span> 完全本地运行</span><button id="clear-all" class="text-button">清空本页</button></div>
+    </header>
+    <main>
+      <section class="hero">
+        <div><p class="eyebrow">A SMALL EXPERIMENT IN PASSWORDS</p><h1>看懂密码的强弱，<br>也看见时间的差距。</h1><p class="hero-copy">输入一个示例密码，了解它的结构。再用一个随机测试密码，亲眼观察穷举。</p></div>
+        <div class="hero-note"><span class="note-symbol" aria-hidden="true">⌘</span><strong>你的输入，留在这里。</strong><p>不保存、不上传，无需网站权限。<br>建议使用示例，避免输入正在使用的密码。</p></div>
+      </section>
+      <div class="workspace">
+        <section class="panel strength-panel" aria-labelledby="strength-title">
+          <div class="section-heading"><span class="step">01</span><div><h2 id="strength-title">密码强度检测</h2><p>从长度、结构和常见模式开始。</p></div><span class="mini-label">ANALYZE</span></div>
+          <label for="password">待评估的示例密码</label>
+          <div class="password-field"><input id="password" type="password" maxlength="128" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="在这里输入示例密码" aria-describedby="strength-caveat"><button id="toggle-password" class="input-button" aria-pressed="false" aria-label="显示密码">显示</button></div>
+          <div class="sample-actions"><span>试一试</span><button class="sample" data-sample="weak">常见弱口令</button><button class="sample" data-sample="phrase">长口令短语</button><button class="sample" data-sample="random">随机示例</button></div>
+          <div id="strength-result" class="strength-result" data-tone="empty"><div><span class="muted">规则评分</span><strong id="strength-label" role="status">等待输入</strong></div><div class="score-number"><span id="score">—</span><span>/ 100</span></div></div>
+          <progress id="strength-meter" max="100" value="0" aria-label="密码规则评分"></progress>
+          <div class="metrics"><div><span>字符长度</span><strong id="length">—</strong></div><div><span>字符类别</span><strong id="kind-count">—</strong></div><div><span>随机假设位数</span><strong id="bits">—</strong></div></div>
+          <div id="kinds" class="chips"><span class="chip">输入后显示字符结构</span></div>
+          <div class="advice"><h3>观察与建议</h3><ul id="advice-list"><li>使用较长、独特的密码或随机口令短语。</li></ul></div>
+          <p id="strength-caveat" class="fine-print">这是启发式规则评分，不是安全认证；不查询泄露数据库，也无法识别所有词典或个人信息模式。“随机假设位数”仅为字符池模型的上限，不代表人为密码的真实熵。</p>
+        </section>
+        <section class="panel demo-panel" aria-labelledby="demo-title">
+          <div class="section-heading"><span class="step">02</span><div><h2 id="demo-title">穷举过程演示</h2><p>只比较本页生成的随机短密码。</p></div><span class="mini-label">OBSERVE</span></div>
+          <div class="demo-controls"><div><label for="preset">测试字符集</label><select id="preset"><option value="digits">数字 0–9（10 种）</option><option value="hex">十六进制 0–f（16 种）</option><option value="letters">字母 a–d（4 种）</option></select></div><div><label for="demo-length">长度</label><select id="demo-length"><option value="2">2 位</option><option value="3">3 位</option><option value="4" selected>4 位</option><option value="5">5 位</option></select></div></div>
+          <div class="target-box"><div><span class="muted">随机测试密码</span><code id="target">— — — —</code></div><button id="generate" class="secondary-button">换一个</button></div>
+          <div class="demo-description"><span>完整空间 <strong id="search-space">10,000</strong> 种</span><label class="pace-label" for="pace">速度 <select id="pace"><option value="visual">逐步观察</option><option value="fast">快速运行</option></select></label></div>
+          <div class="terminal" aria-label="穷举候选观察窗"><div class="terminal-header"><span><i></i> LOCAL COMPARISON</span><span id="terminal-state">READY</span></div><div class="candidate"><span>当前候选</span><code id="candidate">••••</code></div><div class="terminal-bottom"><span id="demo-status" role="status">准备就绪，点击开始演示。</span><span id="progress-label">0.00%</span></div><progress id="demo-progress" max="100" value="0" aria-label="已搜索空间比例"></progress></div>
+          <div class="metrics demo-metrics"><div><span>已尝试</span><strong id="attempts">0</strong></div><div><span>实际耗时</span><strong id="elapsed">0.000 s</strong></div><div><span>平均比较速度</span><strong id="rate">—</strong></div></div>
+          <div class="run-actions"><button id="start" class="primary-button">开始演示 <span aria-hidden="true">↗</span></button><button id="stop" class="secondary-button" disabled>停止</button></div>
+          <p id="demo-error" class="error" role="alert" hidden></p>
+          <p class="fine-print">最多 100,000 种组合，单次最多 12 秒。耗时包含调度与动画等待；字符串比较速度不能代表密码哈希破解或网站登录速度。</p>
+        </section>
+      </div>
+      <section class="estimate-panel" aria-labelledby="estimate-title">
+        <div class="estimate-intro"><p class="eyebrow">READ THE NUMBERS</p><h2 id="estimate-title">估算是模型，<br>演示是实测。</h2><p>假设每个字符独立、等概率随机生成，且已知长度和字符池。平均尝试次数约为空间的一半。</p></div>
+        <div class="estimate-content"><div class="estimate-header"><h3>上方输入的理论平均穷举时间</h3><label for="assumed-rate">假设速度 <select id="assumed-rate"><option value="1000">每秒 1,000 次</option><option value="1000000" selected>每秒 100 万次</option><option value="1000000000">每秒 10 亿次</option></select></label></div><strong id="estimate-time" class="estimate-time">输入示例后查看</strong><p id="estimate-details" class="estimate-details">平均时间 =（字符池大小 ^ 长度 + 1）÷（2 × 每秒尝试次数）</p><p class="fine-print">此数值不是某个账号可被破解的时间。人为模式、哈希算法与硬件会改变离线速度；网站限速、多因素认证等会改变在线条件。非 ASCII 输入不提供字符池时间估算。</p></div>
+      </section>
+    </main>
+    <footer><span>PASSWORD LAB <span class="footer-version">/ v1.0</span></span><span>零外部依赖 · 无输入记录 · 关闭页面结束演示</span></footer>
+  </div>
+</body>
+</html>

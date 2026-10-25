@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Password Lab · 本地密码实验室",
+  "version": "1.0.0",
+  "description": "离线评估密码强度，观察随机测试密码的穷举过程与实际耗时。无需网站权限，不保存输入。",
+  "action": {
+    "default_title": "打开 Password Lab",
+    "default_popup": "popup.html",
+    "default_icon": { "16": "icons/icon16.png", "32": "icons/icon32.png" }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; worker-src 'self'; connect-src 'none'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'"
+  }
+}

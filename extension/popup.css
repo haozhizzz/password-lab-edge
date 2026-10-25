@@ -1,0 +1,13 @@
+:root { font-family: "Segoe UI", "Microsoft YaHei", system-ui, sans-serif; color: #183a2d; background: #f4f6ef; color-scheme: light; }
+* { box-sizing: border-box; }
+body { width: 340px; margin: 0; padding: 27px; }
+.popup-brand { display: flex; align-items: center; gap: 11px; font-weight: 700; font-size: 12px; letter-spacing: 1.7px; }
+.popup-brand img { border-radius: 10px; }
+small { display: block; color: #87937f; font-size: 9px; margin-top: 5px; letter-spacing: 2px; font-weight: 500; }
+h1 { font-size: 24px; line-height: 1.65; font-weight: 600; margin: 26px 0 13px; }
+p { font-size: 11px; line-height: 2; color: #7d8b75; margin-bottom: 24px; }
+button { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 13px 16px; font: inherit; font-size: 12px; background: #11634c; color: #fff; border: 0; border-radius: 8px; cursor: pointer; }
+button:hover { background: #0c503d; }
+button:focus-visible { outline: 3px solid #7dc8a7; outline-offset: 3px; }
+button span { font-size: 18px; }
+.popup-note { font-size: 9px; letter-spacing: .8px; color: #7a9274; margin-top: 19px; }
